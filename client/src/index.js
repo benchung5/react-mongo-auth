@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import reduxThunk from 'redux-thunk';
 
 import App from './components/app';
@@ -14,6 +14,7 @@ import Signup from './components/auth/signup';
 import Dashboard from './components/dashboard';
 import ArticlesList from './components/articles/articles_list';
 import ArticleAdd from './components/articles/article_add';
+import ArticleEdit from './components/articles/article_edit';
 import UsersList from './components/users/users_list';
 
 import reducers from './reducers';
@@ -33,7 +34,7 @@ if (token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="protected" component={ProtecetWarning} />
@@ -41,9 +42,10 @@ ReactDOM.render(
         <Route path="/signup" component={Signup} />
         <Route path="/signout" component={Signout} />
         <Route path="/dashboard" component={RequireAuth(Dashboard)} />
-        <Route path="articles-list" component={RequireAuth(ArticlesList)} />
-        <Route path="article-add" component={RequireAuth(ArticleAdd)} />
-        <Route path="users-list" component={RequireAuth(UsersList)} />
+        <Route path="/articles-list" component={RequireAuth(ArticlesList)} />
+        <Route path="/article-add" component={RequireAuth(ArticleAdd)} />
+        <Route path="/article-edit/:articleId" component={RequireAuth(ArticleEdit)} />
+        <Route path="/users-list" component={RequireAuth(UsersList)} />
       </Route>
     </Router>
   </Provider>

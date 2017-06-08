@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Sidebar from '../sidebar';
+import {Link} from 'react-router';
 //no longer needed as the below uses the shorthand
 //import {bindActionCreators} from 'redux';
 //import {fetchArticles} from '../actions/index';
@@ -17,6 +18,7 @@ class ArticlesIndex extends Component {
     //to the dom for the first time. Here's where we should put our action creator in this case
     componentWillMount() {
         this.props.fetchArticles();
+        console.log('this.props.params.articleId: ', this.props.params.articleId);
     }
 
     onDeleteArticleClick(event) {
@@ -31,7 +33,8 @@ class ArticlesIndex extends Component {
                 <li className="list-group-item" key={article.slug}>
                     <span>{article.title}</span>
                     <a href="#" data-slug={article.slug} onClick={this.onDeleteArticleClick.bind(this)}>Delete</a>
-                    <a href={`${ROOT_URL}/${article.slug}`} target="new_window" >view</a>
+                    <a href={`${ROOT_URL}/${article.slug}`} target="new_window" ></a>
+                    <Link to={`/article-edit/${article.slug}`}>edit</Link>
                 </li>
             );
         });
