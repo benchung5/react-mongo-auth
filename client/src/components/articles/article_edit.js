@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-// import { hashHistory } from 'react-router';
+// import { hashHistory } from 'react-router-dom';
 import * as actions from '../../actions/articles';
 import Sidebar from '../sidebar'
 

@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Sidebar from '../sidebar';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 //no longer needed as the below uses the shorthand
 //import {bindActionCreators} from 'redux';
 //import {fetchArticles} from '../actions/index';
 import * as actions from '../../actions/articles';
 //Link is an actual react component provided by react router it will show up as an html anchor tag.
 //The advantage is that ia really behaves like a real link with all it's perks
-//import {Link} from 'react-router';
+//import {Link} from 'react-router-dom';
 import {
     ROOT_URL
     } from '../../config';

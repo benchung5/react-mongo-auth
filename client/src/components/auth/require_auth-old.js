@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
 //this is a higher order component (HOC) that wraps the incomming component 
 //and attaches additional functionality to it
