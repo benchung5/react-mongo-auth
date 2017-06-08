@@ -18,7 +18,8 @@ class ArticlesIndex extends Component {
     //to the dom for the first time. Here's where we should put our action creator in this case
     componentWillMount() {
         this.props.fetchArticles();
-        console.log('this.props.params.articleId: ', this.props.params.articleId);
+        //this.props.match.params comes in from the router query string
+        //console.log('this.props.match.params: ', this.props.match.params);
     }
 
     onDeleteArticleClick(event) {
@@ -33,8 +34,7 @@ class ArticlesIndex extends Component {
                 <li className="list-group-item" key={article.slug}>
                     <span>{article.title}</span>
                     <a href="#" data-slug={article.slug} onClick={this.onDeleteArticleClick.bind(this)}>Delete</a>
-                    <a href={`${ROOT_URL}/${article.slug}`} target="new_window" ></a>
-                    <Link to={`/article-edit/${article.slug}`}>edit</Link>
+                    <Link to={`/articles-list/${article.slug}`}>edit</Link>
                 </li>
             );
         });
