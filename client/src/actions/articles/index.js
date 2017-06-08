@@ -10,13 +10,8 @@ import {
 
 
 export function fetchArticles() {
-
-    //console.log(config);
-
-    console.log("oo");
-
     return function(dispatch) {
-        axios.get(`${ROOT_URL}/articles`)
+        axios.get(`${ROOT_URL}/articles/all`)
         .then(response => {
 
             dispatch({

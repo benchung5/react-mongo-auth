@@ -46,7 +46,7 @@ var env  = process.env.NODE_ENV || "development";
 var app = express();
 
 // // App Setup
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 app.use(cors());
 app.use(bodyParser.json());
 // app.use(bodyParser.json({ type: '*/*' }));

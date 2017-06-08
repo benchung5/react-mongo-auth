@@ -4,8 +4,8 @@ var router = express.Router();
 const Articles = require('../controllers/articles');
 // const handleError = require('../lib/handle_errors');
 
+// /articles/create
 router.post('/create', Articles.createArticle);
-// post to http://192.168.99.100/articles/create
 // router.post('/create', function (req, res) {
 //     models.Article.create({
 //         slug: req.body.slug,
@@ -26,7 +26,8 @@ router.post('/create', Articles.createArticle);
 //     });
 // });
 
-// //http://192.168.99.100/articles/delete
+/// /articles/delete
+router.post('/delete', Articles.deleteArticle);
 // router.post('/delete', function (req, res) {
 
 //     models.Article.destroy({
@@ -46,14 +47,20 @@ router.post('/create', Articles.createArticle);
 //     });
 // });
 
-//get all users
+/// /articles/all
+router.get('/all', Articles.getArticles);
+// router.get('/all', function (req, res) {
+
+//     res.json({message: 'articles route'});
+//     // models.Article.findAll().then(function (articles) {
+//     //     res.json(articles);
+//     // });
+
+// });
+
+/// /articles
 router.get('/', function (req, res) {
-
     res.json({message: 'articles route'});
-    // models.Article.findAll().then(function (articles) {
-    //     res.json(articles);
-    // });
-
 });
 
 
