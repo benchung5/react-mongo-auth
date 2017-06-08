@@ -15,13 +15,13 @@ export default function (ComposedComponent) {
         //if not authenticated at start, push to the home page
         componentWillMount() {
             if (!this.props.authenticated) {
-                this.context.router.push('/admin-react/protected')
+                this.context.router.push('/protected')
             }
         } 
         //this one fires when component is updated
         componentWillUpdate(nextProps) {
             if (!nextProps.authenticated) {
-                this.context.router.push('/admin-react/protected')
+                this.context.router.push('/protected')
             }
         }
         

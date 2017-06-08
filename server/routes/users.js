@@ -6,6 +6,7 @@
 var express = require('express');
 var router = express.Router();
 const Authentication = require('../controllers/authentication');
+const Users = require('../controllers/users');
 const passportService = require('../services/passport');
 const passport = require('passport');
 
@@ -14,7 +15,7 @@ const requireSignin = passport.authenticate('local', { session: false });
 
 
 
-
+// /
 router.get('/', requireAuth, function(req, res) {
   res.send({ message: 'Super secret code is ABC123' });
 });
@@ -59,6 +60,7 @@ router.post('/create', Authentication.signup);
 // });
 
 // /users/delete
+router.post('/delete', requireSignin, Users.deleteUser);
 // router.post('/delete', function (req, res) {
 
 //     models.User.destroy({
@@ -78,7 +80,9 @@ router.post('/create', Authentication.signup);
 //     });
 // });
 
-// /users/
+
+// /users/all
+router.get('/all', Users.getUsers);
 // router.get('/', function (req, res) {
 
 //     models.User.findAll().then(function (users) {
@@ -86,7 +90,6 @@ router.post('/create', Authentication.signup);
 //     });
 
 // });
-
 
 module.exports = router;
 

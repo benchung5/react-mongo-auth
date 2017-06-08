@@ -6,6 +6,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import reduxThunk from 'redux-thunk';
 
 import App from './components/app';
+import ProtecetWarning from './components/protected_warning';
 import Home from './components/home';
 import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
@@ -35,6 +36,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
+        <Route path="protected" component={ProtecetWarning} />
         <Route path="/signin" component={Signin} />
         <Route path="/signup" component={Signup} />
         <Route path="/signout" component={Signout} />

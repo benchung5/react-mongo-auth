@@ -34,7 +34,7 @@ class AddArticle extends Component {
     render() {
         const { handleSubmit, fields: { title, slug, body }} = this.props;
         return (
-            <div>
+            <div className="row">
                 <Sidebar/>
                 <div className="col-md-10">
                     <h3>Add Article</h3>

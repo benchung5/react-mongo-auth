@@ -39,7 +39,7 @@ class ArticlesIndex extends Component {
     
     render() {
         return (
-            <div>
+            <div className="row">
                 <Sidebar/>
                 <div className="col-md-10">
                     <h3>Articles</h3>

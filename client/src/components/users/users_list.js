@@ -10,16 +10,16 @@ class UsersIndex extends Component {
 	}
 
 	onDeleteUserClick(event) {
-		let username = event.target.getAttribute("data-username");
-		this.props.deleteUser({ username })
+		let email = event.target.getAttribute("data-email");
+		this.props.deleteUser({ email })
 	}
 
 	renderUsers() {
 		return this.props.users.map((user) => {
 			return (
-				<li className="list-group-item" key={user.username}>
-					<span>{user.username}</span>
-					<a href="#" data-username={user.username} onClick={this.onDeleteUserClick.bind(this)}>Delete</a>
+				<li className="list-group-item" key={user.email}>
+					<span>{user.email}</span>
+					<a href="#" data-email={user.email} onClick={this.onDeleteUserClick.bind(this)}>Delete</a>
 				</li>
 			)
 		});
@@ -27,7 +27,7 @@ class UsersIndex extends Component {
 
 	render() {
 			return (
-				<div>
+				<div className="row">
 					<Sidebar/>
 					<div className="col-md-10">
 						<h3>Users</h3>

@@ -7,7 +7,7 @@ import {
 
 export function fetchUsers() {
     return function(dispatch) {
-        axios.get(`${ROOT_URL}/users`)
+        axios.get(`${ROOT_URL}/users/all`)
         .then(response => {
 
             dispatch({
@@ -24,11 +24,11 @@ export function fetchUsers() {
     }
 }
 
-export function deleteUser({ username }) {
+export function deleteUser({ email }) {
         return function(dispatch) {
 
         // post to http://192.168.99.100/articles/delete
-        axios.post( `${ROOT_URL}/users/delete`, { username } )
+        axios.post( `${ROOT_URL}/users/delete`, { email } )
         .then( response => {
             if(response.data.error) {
                 //dispatch(deleteArticleError(`there was an error deleting the article: ${response.data.error}`));

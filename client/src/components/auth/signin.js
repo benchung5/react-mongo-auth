@@ -52,7 +52,7 @@ class Signin extends Component {
                 <button action="submit" className="btn btn-primary">Sign in</button>
             </form>
             <p>Don't have an account?</p>
-            <Link className="nav-link" to="/admin-react/signup">Sign Up</Link>
+            <Link className="nav-link" to="/signup">Sign Up</Link>
             </div>
         );
     }

@@ -4,7 +4,7 @@ import Sidebar from './sidebar'
 export default () => {
 
         return (
-                <div>
+                <div className="row">
                         <Sidebar/>
                         <div className="col-md-10">
                         <h3 className="margin-bottom">Dashboard</h3>

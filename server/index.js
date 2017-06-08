@@ -31,7 +31,7 @@ var expressValidator = require('express-validator');
 
 var routes = require('./routes/index');
 var users  = require('./routes/users');
-// var articles  = require('./routes/articles');
+var articles  = require('./routes/articles');
 // var contact  = require('./routes/contact');
 // var adminReact  = require('./routes/admin-react');
 
@@ -58,7 +58,7 @@ app.use(expressValidator());
 //routes
 // app.use('/admin-react', adminReact);
 app.use('/users', users);
-// app.use('/articles', articles);
+app.use('/articles', articles);
 // app.use('/contact', contact);
 app.use('/', routes);
 
