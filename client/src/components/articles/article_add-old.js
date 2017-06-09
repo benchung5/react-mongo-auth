@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
 import * as actions from '../../actions/articles';
 import Sidebar from '../sidebar'
 
@@ -58,22 +57,22 @@ class AddArticle extends Component {
                 <Sidebar/>
                 <div className="col-md-10">
                     <h3>Add Article</h3>
-                    <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-                        <Field
-                          label="title:"
-                          name="title"
-                          component={this.renderField}
-                        />
-                        <Field
-                          label="slug:"
-                          name="slug"
-                          component={this.renderField}
-                        />
-                        <Field
-                          label="body:"
-                          name="body"
-                          component={this.renderField}
-                        />
+                    <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}> 
+                        <fieldset className="form-group">
+                            <label>title:</label>
+                            <input className="form-control" {...title} />
+                            {title.touched && title.error && <div className="error">{title.error}</div>}
+                        </fieldset>
+                        <fieldset className="form-group">
+                            <label>slug:</label>
+                            <input className="form-control" {...slug} />
+                            {slug.touched && slug.error && <div className="error">{slug.error}</div>}
+                        </fieldset>
+                        <fieldset className="form-group">
+                            <label>body:</label>
+                            <textarea className="form-control" rows="4" cols="50" {...body}></textarea>
+                            {body.touched && body.error && <div className="error">{body.error}</div>}
+                        </fieldset>
                         <button action="submit" className="btn btn-primary">Submit</button>
                     </form>
                     {this.renderAlert()}
@@ -113,22 +112,12 @@ function mapStateToProps(state) {
     };
 }
 
-// export default reduxForm({
-//     form: 'article-add',
-//     fields: ['title', 'slug', 'body'],
-//     // validate: validate
-//     validate
-// }, mapStateToProps, actions)(AddArticle);
-
-
-
 export default reduxForm({
-    validate,
     form: 'article-add',
     fields: ['title', 'slug', 'body'],
-})(
-    connect(mapStateToProps, actions)(AddArticle)
-    );
+    // validate: validate
+    validate
+}, mapStateToProps, actions)(AddArticle);
 
 
 

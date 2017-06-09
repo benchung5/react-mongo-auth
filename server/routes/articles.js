@@ -58,6 +58,7 @@ router.get('/all', Articles.getArticles);
 
 // });
 
+// * must keep here and must be at bottom *
 /// /articles
 router.get('/', function (req, res) {
     res.json({message: 'articles route'});

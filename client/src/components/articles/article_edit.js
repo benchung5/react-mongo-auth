@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
-// import { hashHistory } from 'react-router-dom';
+import { reduxForm, Field } from 'redux-form';
 import * as actions from '../../actions/articles';
-import Sidebar from '../sidebar'
+import Sidebar from '../sidebar';
+import { connect } from 'react-redux';
+import renderField from '../parts/form_fields';
 
 class EditArticle extends Component {
 
@@ -44,22 +45,25 @@ class EditArticle extends Component {
                 <Sidebar/>
                 <div className="col-md-10">
                     <h3>Add Article</h3>
-                    <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}> 
-                        <fieldset className="form-group">
-                            <label>title:</label>
-                            <input className="form-control" {...title} />
-                            {title.touched && title.error && <div className="error">{title.error}</div>}
-                        </fieldset>
-                        <fieldset className="form-group">
-                            <label>slug:</label>
-                            <input className="form-control" {...slug} />
-                            {slug.touched && slug.error && <div className="error">{slug.error}</div>}
-                        </fieldset>
-                        <fieldset className="form-group">
-                            <label>body:</label>
-                            <textarea className="form-control" rows="4" cols="50" {...body}></textarea>
-                            {body.touched && body.error && <div className="error">{body.error}</div>}
-                        </fieldset>
+                    <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+                        <Field
+                          type="input"
+                          label="Title:"
+                          name="title"
+                          component={renderField}
+                        />
+                        <Field
+                          type="input"
+                          label="Slug:"
+                          name="slug"
+                          component={renderField}
+                        />
+                        <Field
+                          type="textarea"
+                          label="Body:"
+                          name="body"
+                          component={renderField}
+                        />
                         <button action="submit" className="btn btn-primary">Submit</button>
                     </form>
                     {this.renderAlert()}
@@ -100,11 +104,12 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
+    validate,
     form: 'article-add',
     fields: ['title', 'slug', 'body'],
-    // validate: validate
-    validate
-}, mapStateToProps, actions)(EditArticle);
+})(
+    connect(mapStateToProps, actions)(EditArticle)
+    );
 
 
 

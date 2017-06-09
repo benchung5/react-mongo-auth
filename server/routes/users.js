@@ -15,11 +15,6 @@ const requireSignin = passport.authenticate('local', { session: false });
 
 
 
-// /
-router.get('/', requireAuth, function(req, res) {
-  res.send({ message: 'Super secret code is ABC123' });
-});
-
 // /users/verify
 router.post('/verify', requireSignin, Authentication.signin);
 // function tokenForUser(user) {
@@ -60,7 +55,7 @@ router.post('/create', Authentication.signup);
 // });
 
 // /users/delete
-router.post('/delete', requireSignin, Users.deleteUser);
+router.post('/delete', Users.deleteUser);
 // router.post('/delete', function (req, res) {
 
 //     models.User.destroy({
@@ -90,6 +85,12 @@ router.get('/all', Users.getUsers);
 //     });
 
 // });
+
+// * must keep here and must be at bottom *
+// /
+router.get('/', function(req, res) {
+  res.send({ message: 'users route' });
+});
 
 module.exports = router;
 

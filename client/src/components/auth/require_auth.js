@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 //this is a higher order component (HOC) that wraps the incomming component 
 //and attaches additional functionality to it
@@ -10,27 +10,27 @@ export default function (ComposedComponent) {
         //expost this static object telling react we want to use the router
         //object. (second value React.ProtoTypes.object is the type - 
         //boilerplate) 
-        static contextTypes = {
-            router: PropTypes.object
-        }
+        // static contextTypes = {
+        //     router: PropTypes.object
+        // }
         //if not authenticated at start, push to the home page
         componentWillMount() {
             if (!this.props.authenticated) {
-                this.context.router.push('/protected')
+                //this.context.router.push('/protected');
+                this.props.history.push('/protected');
             }
         } 
         //this one fires when component is updated
         componentWillUpdate(nextProps) {
             if (!nextProps.authenticated) {
-                this.context.router.push('/protected')
+                //this.context.router.push('/protected');
+                this.props.history.push('/protected');
             }
         }
         
         render() {
             //the this.props is for passing up new props from the combined component *instance to 
             //existing props on the original composed component below
-            // console.log('Rendering', ComposedComponent);
-            // console.log(this.props.authenticated);
             return <ComposedComponent {...this.props} />
         }
     }
@@ -48,17 +48,3 @@ export default function (ComposedComponent) {
 // const ComposedComponent = Authentication(Resources);
 //// in some render method...
 // <ComposedComponent resources={resourceList}>
-
-//------------------------
-
-//boilerplate for HOC:
-//import React, {Component} from 'react';
-// export default function (ComposedComponent) {
-//     class Authentication extends Component {
-//         render() {
-//             return <ComposedComponent {...this.props} />
-//         }
-//     }
-    
-//     return Authentication;
-// }

@@ -3,8 +3,17 @@ import { reduxForm, Field } from 'redux-form';
 import { signupUser } from '../../actions/auth';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
+import renderField from '../parts/form_fields';
 
 class Signup extends Component {
+
+  componentWillUpdate(nextProps) {
+      //if just authenticated, redirect to dashboard
+      if (nextProps.authenticated) {
+        this.props.history.push('/dashboard');
+      }
+  }
+
   handleFormSubmit(formProps) {
     // Call action creator to sign up the user!
     this.props.signupUser(formProps);
@@ -20,25 +29,6 @@ class Signup extends Component {
     }
   }
 
-  renderField(field) {
-    const { meta: { touched, error } } = field;
-    const className = `form-group ${touched && error ? 'has-danger' : ''}`;
-
-    return (
-      <div className={className}>
-        <label>{field.label}</label>
-        <input
-          className="form-control"
-          type="text"
-          {...field.input}
-        />
-        <div className="error">
-          {touched ? error : ''}
-        </div>
-      </div>
-    );
-  }
-
 
   render() {
     const { handleSubmit, fields: { email, password, passwordConfirm }} = this.props;
@@ -51,19 +41,19 @@ class Signup extends Component {
           <Field
             label="Email:"
             name="email"
-            component={this.renderField}
+            component={renderField}
           />
 
           <Field
             label="Password:"
             name="password"
-            component={this.renderField}
+            component={renderField}
           />
 
           <Field
             label="Confirm Password:"
             name="passwordConfirm"
-            component={this.renderField}
+            component={renderField}
           />
 
           <button action="submit" className="btn btn-primary">Sign up!</button>
@@ -109,7 +99,10 @@ function validate(formProps) {
 }
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.error };
+  return { 
+    errorMessage: state.auth.error,
+    authenticated: state.auth.authenticated
+     };
 }
 
 export default reduxForm({

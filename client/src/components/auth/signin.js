@@ -2,20 +2,22 @@ import React, {Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { signinUser } from '../../actions/auth';
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import renderField from '../parts/form_fields';
 
 class Signin extends Component {
-
-    static contextTypes = {
-      router: PropTypes.object
-    };
 
     componentWillMount() {
         if (this.props.authenticated) {
           // if the user is already logged in, just forward them right to the dashboard
-          this.context.router.push('/dashboard');
+          this.props.history.push('/dashboard');
+        }
+    }
+
+    componentWillUpdate(nextProps) {
+        if (nextProps.authenticated) {
+          //if just authenticated, redirect to dashboard
+          this.props.history.push('/dashboard');
         }
     }
 
@@ -34,25 +36,6 @@ class Signin extends Component {
         }
     }
 
-    renderField(field) {
-      const { meta: { touched, error } } = field;
-      const className = `form-group ${touched && error ? 'has-danger' : ''}`;
-
-      return (
-        <div className={className}>
-          <label>{field.label}</label>
-          <input
-            className="form-control"
-            type="text"
-            {...field.input}
-          />
-          <div className="error">
-            {touched ? error : ''}
-          </div>
-        </div>
-      );
-    }
-
     render() {
         //props that are pulled off of redux form
         const { handleSubmit, fields: {email, password} } = this.props;
@@ -62,14 +45,14 @@ class Signin extends Component {
             <h3 className="margin-bottom">Login</h3>
             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                 <Field
-                  label="User Name:"
+                  label="Email:"
                   name="email"
-                  component={this.renderField}
+                  component={renderField}
                 />
                 <Field
                   label="Password:"
                   name="password"
-                  component={this.renderField}
+                  component={renderField}
                 />
                 { this.renderAlert() }
                 <button action="submit" className="btn btn-primary">Sign in</button>
@@ -79,14 +62,14 @@ class Signin extends Component {
             </div>
         );
     }
-
 }
 
 function mapStateToProps(state) {
     //have our state to show up in props as errorMessage
     return {
         authenticated: state.auth.authenticated,
-        errorMessage: state.auth.error
+        errorMessage: state.auth.error,
+        authenticated: state.auth.authenticated
     }
 }
 

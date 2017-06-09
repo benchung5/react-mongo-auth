@@ -2,17 +2,14 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as actions from '../actions/auth';
-import PropTypes from 'prop-types';
+
+
 
 class Header extends Component {
 
-    static contextTypes = {
-      router: PropTypes.object
-    };
-
     onSignOutClick() {
         this.props.signoutUser();
-        this.context.router.push('/signin');
+        this.props.history.push('/signin');
     }
 
     renderLinks() {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { browserHistory } from 'react-router-dom';
+import history from '../../history';
 import {
   AUTH_USER,
   UNAUTH_USER,
@@ -20,7 +20,7 @@ export function signinUser({ email, password }) {
         // - Save the JWT token
         localStorage.setItem('token', response.data.token);
         // - redirect to the route '/feature'
-        browserHistory.push('/dashboard');
+        //history.push('/dashboard');
       })
       .catch(() => {
         // If request is bad...
@@ -36,7 +36,7 @@ export function signupUser({ email, password }) {
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
-        browserHistory.push('/dashboard');
+        //history.push('/dashboard');
       })
       .catch(response => dispatch(authError(response.data.error)));
   }

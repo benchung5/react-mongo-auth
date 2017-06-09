@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import Header from './components/header';
+import customHistory from './history';
+
 //import { Router, Route, IndexRoute, browserHistory } from 'react-router-dom';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import reduxThunk from 'redux-thunk';
 
-import App from './components/app';
 import ProtecetWarning from './components/protected_warning';
 import Home from './components/home';
 import Signin from './components/auth/signin';
@@ -36,20 +37,22 @@ if (token) {
   store.dispatch({ type: AUTH_USER });
 }
 
+//Header needs to be a pathless Route so it updates when 
+//the route changes and use props.history
 //note the "exact" in the /articles-list route
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter history={customHistory}>
       <div>
-       <Header />
-       <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="protected" component={ProtecetWarning} />
-          <Route path="/signin" component={Signin} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/signout" component={Signout} />
-          <Route path="/dashboard" component={RequireAuth(Dashboard)} />
-          <Route exact path="/articles-list" component={RequireAuth(ArticlesList)} />
+       <Route history={customHistory} component={Header} />
+       <Switch history={customHistory}>
+          <Route history={customHistory} exact path="/" component={Home} />
+          <Route history={customHistory} path="protected" component={ProtecetWarning} />
+          <Route history={customHistory} path="/signin" component={Signin} />
+          <Route history={customHistory} path="/signup" component={Signup} />
+          <Route history={customHistory} path="/signout" component={Signout} />
+          <Route history={customHistory} path="/dashboard" component={RequireAuth(Dashboard)} />
+          <Route history={customHistory} exact path="/articles-list" component={RequireAuth(ArticlesList)} />
           <Route path="/articles-list/:articleId" component={RequireAuth(ArticleEdit)} />
           <Route path="/article-add" component={RequireAuth(ArticleAdd)} />
           <Route path="/users-list" component={RequireAuth(UsersList)} /> 
