@@ -21,6 +21,14 @@ exports.getArticles = function(req, res, next) {
 	});
 }
 
+exports.getArticle = function(req, res, next) {
+	Article.findOne({ slug: req.body }, function(err, foundArticle) {
+		console.log(foundArticle);
+	    if (err) return next(err);
+	    res.send(foundArticle);
+	});
+}
+
 exports.deleteArticle = function(req, res, next) {
 	console.log(req.body);
 	Article.findOneAndRemove(req.body, (err, deletedArticle) => {

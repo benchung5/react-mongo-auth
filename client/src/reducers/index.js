@@ -5,6 +5,7 @@ import reducerArticles from './reducerArticles';
 import reducerAuth from './reducerAuth';
 import reducerUser from './reducerUser';
 import reducerUsers from './reducerUsers';
+import reducerGetArticle from './reducerGetArticle';
 
 const rootReducer = combineReducers({
   form,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   articles: reducerArticles,
   auth: reducerAuth,
   user: reducerUser,
-  users: reducerUsers
+  users: reducerUsers,
+  articleSingle: reducerGetArticle
 });
 
 export default rootReducer;

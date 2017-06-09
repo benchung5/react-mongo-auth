@@ -8,8 +8,23 @@ import renderField from '../parts/form_fields';
 class EditArticle extends Component {
 
     componentWillMount() {
-        // let location = hashHistory.getCurrentLocation();
-        // console.log(location);
+        //get initial data to populate the form
+        console.log(this.props.match.params.articleId);
+        this.props.getArticle();
+    }
+
+    componentDidMount() {
+      this.handleInitialize();
+    }
+
+    handleInitialize() {
+      const initData = {
+        "title": 'foo',
+        "slug": 'foo',
+        "body": 'foo',
+      };
+
+      this.props.initialize(initData);
     }
 
     // if form isn't valit redux form will not call this function
@@ -44,7 +59,8 @@ class EditArticle extends Component {
             <div className="row">
                 <Sidebar/>
                 <div className="col-md-10">
-                    <h3>Add Article</h3>
+                    <h3>Edit Article</h3>
+                    {this.props.articleData}
                     <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                         <Field
                           type="input"
@@ -99,7 +115,8 @@ function validate(formProps) {
 function mapStateToProps(state) {
     return { 
         articleAdded: state.article.articleAdded,
-        errorMessage: state.article.addArticleError
+        errorMessage: state.article.addArticleError,
+        articleData: state.article.articleSingle
     };
 }
 

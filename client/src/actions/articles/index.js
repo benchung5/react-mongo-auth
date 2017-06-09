@@ -28,6 +28,24 @@ export function fetchArticles() {
     }
 }
 
+export function getArticle() {
+    return function(dispatch) {
+        axios.get(`${ROOT_URL}/articles/single`)
+        .then(response => {
+
+            dispatch({
+                type: GET_ARTICLE,
+                payload: response.data
+             });
+
+        })
+        .catch(() => {
+            console.log('error getting article');
+            //todo: if request is bad
+            // dispatch(fetchArticlesError('response.data.error'));
+        });
+    }
+}
 
 export function addArticle({ title, slug, body }) {
     return function(dispatch) {

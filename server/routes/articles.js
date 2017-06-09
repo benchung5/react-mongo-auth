@@ -58,6 +58,9 @@ router.get('/all', Articles.getArticles);
 
 // });
 
+/// /articles/all
+router.get('/single', Articles.getArticle);
+
 // * must keep here and must be at bottom *
 /// /articles
 router.get('/', function (req, res) {
