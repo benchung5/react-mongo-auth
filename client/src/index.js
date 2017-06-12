@@ -53,11 +53,14 @@ ReactDOM.render(
           <Route history={customHistory} path="/signout" component={Signout} />
           <Route history={customHistory} path="/dashboard" component={RequireAuth(Dashboard)} />
           <Route history={customHistory} exact path="/articles-list" component={RequireAuth(ArticlesList)} />
-          <Route path="/articles-list/:articleId" component={RequireAuth(ArticleEdit)} />
-          <Route path="/article-add" component={RequireAuth(ArticleAdd)} />
-          <Route path="/users-list" component={RequireAuth(UsersList)} /> 
+          <Route history={customHistory} path="/articles-list/:articleId" component={RequireAuth(ArticleEdit)} />
+          <Route history={customHistory} path="/article-add" component={RequireAuth(ArticleAdd)} />
+          <Route history={customHistory} path="/users-list" component={RequireAuth(UsersList)} /> 
         </Switch> 
       </div>  
     </BrowserRouter>
   </Provider>
   , document.querySelector('.container'));
+
+//export store for use with redux-watch
+export { store };

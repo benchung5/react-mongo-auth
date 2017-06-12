@@ -5,8 +5,28 @@ exports.createArticle = function(req, res, next) {
 	var article = new Article(req.body);
 	article.save(function(err, createdArticle) {
 		console.log(createdArticle);
-		if (err) return next(err);
+		console.log('error: ', err);
+		if (err) {
+			return res.send({ error: 'Article already exists' });
+			return next(err);
+		}
 		res.send(createdArticle);
+	});
+}
+
+exports.updateArticle = function(req, res, next) {
+	console.log(req.body);
+	Article.findOne({ slug: req.body.slug }, (err, articleToUpdate) => {
+		console.log(articleToUpdate);
+		articleToUpdate.title = req.body.title;
+		articleToUpdate.slug = req.body.slug;
+		articleToUpdate.body = req.body.body;
+		articleToUpdate.save();
+	    if (err) {
+	    	return res.send({ error: 'Slug exists already' });
+	    	return next(err);
+	    }
+	    res.json(articleToUpdate);
 	});
 }
 
@@ -22,10 +42,11 @@ exports.getArticles = function(req, res, next) {
 }
 
 exports.getArticle = function(req, res, next) {
-	Article.findOne({ slug: req.body }, function(err, foundArticle) {
+	//console.log('req.query.id: ', req.query.id);
+	Article.findOne({ slug: req.query.id }, (err, foundArticle) => {
 		console.log(foundArticle);
 	    if (err) return next(err);
-	    res.send(foundArticle);
+	    res.json(foundArticle);
 	});
 }
 

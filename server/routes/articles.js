@@ -26,6 +26,9 @@ router.post('/create', Articles.createArticle);
 //     });
 // });
 
+/// /articles/update
+router.post('/update', Articles.updateArticle);
+
 /// /articles/delete
 router.post('/delete', Articles.deleteArticle);
 // router.post('/delete', function (req, res) {
@@ -58,13 +61,16 @@ router.get('/all', Articles.getArticles);
 
 // });
 
-/// /articles/all
+/// /articles/single
 router.get('/single', Articles.getArticle);
+// router.get('/single', (req, res) => {
+// 	res.send({ message: 'single article' });
+// });
 
 // * must keep here and must be at bottom *
 /// /articles
 router.get('/', function (req, res) {
-    res.json({message: 'articles route'});
+    res.send({ message: 'articles route' });
 });
 
 

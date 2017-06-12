@@ -67,21 +67,6 @@ class EditArticle extends Component {
     //         //console.log(nextProps.articleData);
     //     }
     // }
-
-    //this one fires when component is updated
-    componentWillUpdate(nextProps) {
-        
-        // if (!nextProps.authenticated) {
-        //     //this.context.router.push('/protected')
-        // }
-        if(nextProps.articleData && this.initalized === false) {
-            console.log(nextProps.articleData);
-             //make sure to only call this the first time changed
-             this.initalized = true;
-             this.handleInitialize(nextProps.articleData);
-             
-         }
-    }
     
     render() {
         const { handleSubmit, fields: { title, slug, body }} = this.props;
@@ -145,38 +130,22 @@ function validate(formProps) {
     return errors;
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return { 
         articleUpdated: state.article.articleUpdated,
         // errorMessage: state.article.addArticleError,
-        articleData: state.article.articleSingle,
-        initialValues: state.article.articleSingle
+        articleData: state.article.articleSingle
     };
 }
 
 export default reduxForm({
     validate,
     form: 'article-add',
-    enableReinitialize : true, // this is needed!!
     fields: ['title', 'slug', 'body'],
     //initialValues: {title: 'foobar', slug: 'foobar2', body: 'foobar3'}
 })(
     connect(mapStateToProps, actions)(EditArticle)
     );
-
-
-// EditArticle = reduxForm({
-//     form:'article-add',
-//     enableReinitialize : true, // this is needed!!
-// })(EditArticle)
-
-// EditArticle = connect(
-//   state => ({
-//     initialValues: {title: 'foobar', slug: 'foobar2', body: 'foobar3'}
-//   }), actions  
-// )(EditArticle)
-
-// export default EditArticle;
 
 
 
