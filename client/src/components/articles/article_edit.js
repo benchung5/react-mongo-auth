@@ -13,16 +13,14 @@ class EditArticle extends Component {
         this.state = {
 
         }
-        this.initalized = false;
     }
 
     componentWillMount() {
-        console.log(this.props.match.params.articleId)
         //get initial data to populate the form
         this.props.getArticle(this.props.match.params.articleId);
     }
 
-    handleInitialize(initData) {
+    handleInitialize() {
 
           const formData = {
             "title": this.props.articleData.title,
@@ -59,28 +57,10 @@ class EditArticle extends Component {
         }
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //    if(nextProps.articleData && this.initalized === false) {
-    //     //make sure to only call this the first time changed
-    //     this.initalized = true;
-    //     this.handleInitialize(nextProps.articleData);
-    //         //console.log(nextProps.articleData);
-    //     }
-    // }
-
-    //this one fires when component is updated
-    componentWillUpdate(nextProps) {
-        
-        // if (!nextProps.authenticated) {
-        //     //this.context.router.push('/protected')
-        // }
-        if(nextProps.articleData && this.initalized === false) {
-            console.log(nextProps.articleData);
-             //make sure to only call this the first time changed
-             this.initalized = true;
-             this.handleInitialize(nextProps.articleData);
-             
-         }
+    componentDidUpdate(prevProps) {
+        if (this.props.articleData && (prevProps.articleData !== this.props.articleData)) {
+            this.handleInitialize();
+        }
     }
     
     render() {
@@ -149,15 +129,13 @@ function mapStateToProps(state, ownProps) {
     return { 
         articleUpdated: state.article.articleUpdated,
         // errorMessage: state.article.addArticleError,
-        articleData: state.article.articleSingle,
-        initialValues: state.article.articleSingle
+        articleData: state.article.articleSingle
     };
 }
 
 export default reduxForm({
     validate,
     form: 'article-add',
-    enableReinitialize : true, // this is needed!!
     fields: ['title', 'slug', 'body'],
     //initialValues: {title: 'foobar', slug: 'foobar2', body: 'foobar3'}
 })(

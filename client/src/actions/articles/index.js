@@ -70,6 +70,9 @@ export function addArticle({ title, slug, body }) {
 }
 
 export function updateArticle({ title, slug, body }) {
+
+    console.log(title, slug, body);
+
     return function(dispatch) {
         // post to http://192.168.99.100/api/articles/create
         axios.post( `${ROOT_URL}/articles/update`, { title, slug, body } )
