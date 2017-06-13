@@ -7,9 +7,15 @@ const app = require('../index');
 
 // // DB Setup
 const mongoose = require('mongoose');
+//implement node promise library
+mongoose.Promise = global.Promise;
 
 mongoose.connect('mongodb://localhost:auth/auth');
-
+  mongoose.connection
+    .once('open', () => { console.log('mongoDB connected') })
+    .on('error', (error) => {
+      console.warn('Warning', error);
+    });
 
 console.log("NODE_ENV : ", process.env.NODE_ENV);
 //use an environment variable to change the port # depending if it's deployed on a server or locally.

@@ -21,10 +21,8 @@ class EditArticle extends Component {
     }
 
     handleInitialize() {
-
           const formData = {
             "title": this.props.articleData.title,
-            "slug": this.props.articleData.slug,
             "body": this.props.articleData.body
         };
 
@@ -38,22 +36,12 @@ class EditArticle extends Component {
     }
 
     renderUpdated() {
-        if(this.props.articleUpdated && !this.props.errorMessage) {
+        if(this.props.articleUpdated) {
             return (
                 <div>
                     <span>Article: {this.props.articleUpdated.title}<br/>successfully updated.</span>
                 </div>
             )
-        }
-    }
-
-    renderAlert() {
-        if (this.props.errorMessage && !this.props.articleData) {
-            return (
-                <div className="alert alert-danger">
-                    <strong>Oops!</strong> {this.props.errorMessage}
-                </div>
-            );
         }
     }
 
@@ -76,12 +64,6 @@ class EditArticle extends Component {
                           type="input"
                           label="Title:"
                           name="title"
-                          component={renderField}
-                        />
-                        <Field
-                          type="input"
-                          label="Slug:"
-                          name="slug"
                           component={renderField}
                         />
                         <Field
@@ -128,7 +110,6 @@ function validate(formProps) {
 function mapStateToProps(state, ownProps) {
     return { 
         articleUpdated: state.article.articleUpdated,
-        // errorMessage: state.article.addArticleError,
         articleData: state.article.articleSingle
     };
 }

@@ -32,6 +32,7 @@ class AddArticle extends Component {
     }
 
     renderAdded() {
+        //only render if there's no error message
         if(this.props.articleAdded && !this.props.errorMessage) {
             return (
                 <div>
@@ -41,14 +42,29 @@ class AddArticle extends Component {
         }
     }
 
-    renderAlert() {
-        if (this.props.errorMessage && !this.props.articleAdded) {
+    renderError() {
+        if (this.props.errorMessage) {
             return (
                 <div className="alert alert-danger">
                     <strong>Oops!</strong> {this.props.errorMessage}
                 </div>
             );
         }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.articleData && (prevProps.articleData !== this.props.articleData)) {
+            this.handleInitialize();
+        }
+        //clear out error messsages if any
+        if (this.props.articleAdded && (prevProps.articleAdded !== this.props.articleAdded)) {
+            console.log(this.props.articleAdded);
+            this.props.addArticleError('');
+        }
+    }
+
+    renderAlert() {
+
     }
     
     render() {
@@ -76,8 +92,8 @@ class AddArticle extends Component {
                         />
                         <button action="submit" className="btn btn-primary">Submit</button>
                     </form>
-                    {this.renderAlert()}
                     {this.renderAdded()}
+                    {this.renderError()}
                 </div>
             </div>
         );
